@@ -50,7 +50,7 @@ public class TrainTicketControllerTest {
 
     @Test
     public void testGetReceipt() {
-        Ticket ticket = new Ticket("Thanjavur", "Chennai", new User("Karthikeyan", "Marimuthu", "mkarthikeyanlucky0212@gmail.com"), 20);
+        Ticket ticket = new Ticket("London", "France", new User("Karthikeyan", "Marimuthu", "mkarthikeyanlucky0212@gmail.com"), 20);
         when(ticketService.getReceipt("mkarthikeyanlucky0212@gmail.com")).thenReturn(ticket);
 
         ResponseEntity<Ticket> response = trainTicketController.getReceipt("mkarthikeyanlucky0212@gmail.com");
@@ -81,6 +81,15 @@ public class TrainTicketControllerTest {
 
     @Test
     public void testModifySeat() {
+        ResponseEntity<String> response = trainTicketController.modifySeat("mkarthikeyanlucky0212@gmail.com", "Seat1");
+
+        assertEquals(HttpStatus.OK, response.getStatusCode());
+        assertEquals("Seat Not Available.", response.getBody());
+    }
+    
+    @Test
+    public void testModifySeat1() {
+    	when(ticketService.modifySeat("mkarthikeyanlucky0212@gmail.com", "Seat2")).thenReturn(true);
         ResponseEntity<String> response = trainTicketController.modifySeat("mkarthikeyanlucky0212@gmail.com", "Seat2");
 
         assertEquals(HttpStatus.OK, response.getStatusCode());
